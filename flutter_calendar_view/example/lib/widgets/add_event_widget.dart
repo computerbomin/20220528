@@ -1,4 +1,5 @@
 import 'package:calendar_view/calendar_view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -259,6 +260,10 @@ class _AddEventWidgetState extends State<AddEventWidget> {
               onTap: _createEvent,
               title: "완료",
             ),
+            CustomButton(
+              onTap: (){createUser(name: 'test');},
+              title: "갱신",
+            ),
           ],
         ),
       ),
@@ -285,6 +290,20 @@ class _AddEventWidgetState extends State<AddEventWidget> {
 
     widget.onEventAdd?.call(event);
     _resetForm();
+  }
+
+  Future createUser({required String name}) async {
+    final docUser =
+    FirebaseFirestore.instance.collection('user1').doc();
+
+    final json = {
+      'title': '1',
+      'text': '1',
+      'createTime': '1',
+      'editTime': '1',
+    };
+
+    await docUser.set(json);
   }
 
   void _resetForm() {

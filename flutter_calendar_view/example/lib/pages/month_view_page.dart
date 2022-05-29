@@ -2,6 +2,8 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import '../extension.dart';
 import '../model/event.dart';
@@ -11,8 +13,8 @@ import '../widgets/week_view_widget.dart';
 import 'create_event_page.dart';
 import '../action_button.dart';
 import '../expandable_fab.dart';
+import 'memo_main_page.dart';
 import 'remove_event_page.dart';
-import 'memo_event_page.dart';
 
 class MonthViewPageDemo extends StatefulWidget {
   const MonthViewPageDemo({
@@ -77,15 +79,17 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
               color: Colors.white,
             ),
             ActionButton(
-              onPressed: (){}, //_removeEvent,
-              icon: Icon(Icons.delete),
+              onPressed: (){
+                //createUser(name: 'test');
+              }, //_removeEvent,
+              icon: Icon(Icons.refresh),
               color: Colors.white,
             ),
             ActionButton(
               onPressed: (){
                 Navigator.push(
                     context,
-                    CupertinoPageRoute(builder: (context) => MemoEvent())
+                    CupertinoPageRoute(builder: (context) => MemoMain())
                 );
               },
               icon: Icon(Icons.note),
@@ -108,4 +112,20 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
         .controller
         .add(event);
   }
+/*
+  Future createUser({required String name}) async {
+    final docUser =
+    FirebaseFirestore.instance.collection('user1').doc('testEvent');
+
+    final json = {
+      'title': 'memo.title',
+      'text': 'memo.text',
+      'createTime': 'memo.createTime',
+      'editTime': 'memo.editTime',
+    };
+
+    await docUser.set(json);
+  }
+ */
+
 }
